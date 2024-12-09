@@ -1,6 +1,26 @@
 # API de Agendamento de Consultas Veterinárias
 
-Esta API permite o agendamento de consultas veterinárias, autenticação de usuários via JWT, e gerenciamento de usuários e pets. O sistema é projetado para facilitar o processo de agendamento e administração de consultas veterinárias.
+Este projeto tem como finalidade o desenvolvimento de uma API destinada a uma clínica veterinária, com o objetivo principal de otimizar a gestão de serviços e melhorar o atendimento aos clientes. O sistema proporciona aos clientes a possibilidade de realizar seu cadastro, registrar seus pets e agendar serviços, como banho, tosa e vacinação. Além disso, um administrador terá acesso a funcionalidades específicas, permitindo a gestão dos serviços oferecidos, o controle dos agendamentos e a manutenção organizada da base de dados.
+
+A API implementa autenticação por meio de JWT, garantindo a segurança das operações e a diferenciação dos níveis de acesso entre clientes e administradores. Para fins de prototipagem, o banco de dados poderá ser mantido em memória, e o projeto foi projetado para ser facilmente implantado utilizando Docker.
+
+As funcionalidades do sistema foram definidas com base em histórias de usuário, priorizando a experiência dos clientes e a eficiência na administração da clínica, assegurando a adequação às necessidades dos envolvidos.
+
+##📖 Histórias de Usuário
+1. Cadastro de Usuário (Cliente)
+💡 Como cliente, quero me cadastrar no sistema da clínica informando meu nome, e-mail e senha, para que eu possa acessar as funcionalidades de cadastro de pets e agendamento de serviços.
+
+2. Cadastro de Pet (Cliente)
+💡 Como cliente cadastrado, quero cadastrar meu pet informando seu nome, idade e espécie, para que ele possa ser vinculado aos serviços que desejo agendar.
+
+3. Agendamento de Serviço (Cliente)
+💡 Como cliente cadastrado e com pet registrado, quero agendar um serviço para meu pet escolhendo o tipo de serviço e a data/hora disponível, para garantir o atendimento no momento desejado.
+
+4. Gerenciamento de Serviços (Administrador)
+💡 Como administrador da clínica, quero poder cadastrar, editar ou excluir serviços disponíveis no sistema, para que as opções estejam sempre atualizadas e corretas para os clientes.
+
+5. Gerenciamento de Usuários e Pets (Administrador)
+💡 Como administrador da clínica, quero poder excluir usuários ou pets cadastrados no sistema, para remover dados desnecessários ou incorretos e manter o sistema organizado.
 
 ## Tecnologias Utilizadas
 
