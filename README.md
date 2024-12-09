@@ -53,7 +53,3 @@ Copiar código
 docker run -p 8080:8080 api-agendamento
 Isso fará com que a API esteja acessível no endereço http://localhost:8080.
 
-
-8. **Licença**: Informação sobre a licença do projeto.
-
-Esse README fornece uma visão geral clara e objetiva sobre como utilizar o projeto e contribui para uma melhor compreensão do funcionamento da API.
