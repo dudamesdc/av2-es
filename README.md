@@ -1,4 +1,4 @@
-# API de Agendamento de Consultas Veterinárias
+# API de Agendamento de Serviços Veterinários
 
 Este projeto tem como finalidade o desenvolvimento de uma API destinada a uma clínica veterinária, com o objetivo principal de otimizar a gestão de serviços e melhorar o atendimento aos clientes. O sistema proporciona aos clientes a possibilidade de realizar seu cadastro, registrar seus pets e agendar serviços, como banho, tosa e vacinação. Além disso, um administrador terá acesso a funcionalidades específicas, permitindo a gestão dos serviços oferecidos, o controle dos agendamentos e a manutenção organizada da base de dados.
 
