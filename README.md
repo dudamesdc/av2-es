@@ -6,21 +6,31 @@ A API implementa autenticação por meio de JWT, garantindo a segurança das ope
 
 As funcionalidades do sistema foram definidas com base em histórias de usuário, priorizando a experiência dos clientes e a eficiência na administração da clínica, assegurando a adequação às necessidades dos envolvidos.
 
-##📖 Histórias de Usuário
-1. Cadastro de Usuário (Cliente)
-💡 Como cliente, quero me cadastrar no sistema da clínica informando meu nome, e-mail e senha, para que eu possa acessar as funcionalidades de cadastro de pets e agendamento de serviços.
+## 📖 **Histórias de Usuário**
 
-2. Cadastro de Pet (Cliente)
-💡 Como cliente cadastrado, quero cadastrar meu pet informando seu nome, idade e espécie, para que ele possa ser vinculado aos serviços que desejo agendar.
+### **1. Cadastro de Usuário (Cliente)**  
+**💡 Como cliente**, quero me cadastrar no sistema da clínica informando meu nome, e-mail e senha, para que eu possa acessar as funcionalidades de cadastro de pets e agendamento de serviços.
 
-3. Agendamento de Serviço (Cliente)
-💡 Como cliente cadastrado e com pet registrado, quero agendar um serviço para meu pet escolhendo o tipo de serviço e a data/hora disponível, para garantir o atendimento no momento desejado.
+---
 
-4. Gerenciamento de Serviços (Administrador)
-💡 Como administrador da clínica, quero poder cadastrar, editar ou excluir serviços disponíveis no sistema, para que as opções estejam sempre atualizadas e corretas para os clientes.
+### **2. Cadastro de Pet (Cliente)**  
+**💡 Como cliente cadastrado**, quero cadastrar meu pet informando seu nome, idade e espécie, para que ele possa ser vinculado aos serviços que desejo agendar.
 
-5. Gerenciamento de Usuários e Pets (Administrador)
-💡 Como administrador da clínica, quero poder excluir usuários ou pets cadastrados no sistema, para remover dados desnecessários ou incorretos e manter o sistema organizado.
+---
+
+### **3. Agendamento de Serviço (Cliente)**  
+**💡 Como cliente cadastrado e com pet registrado**, quero agendar um serviço para meu pet escolhendo o tipo de serviço e a data/hora disponível, para garantir o atendimento no momento desejado.
+
+---
+
+### **4. Gerenciamento de Serviços (Administrador)**  
+**💡 Como administrador da clínica**, quero poder cadastrar, editar ou excluir serviços disponíveis no sistema, para que as opções estejam sempre atualizadas e corretas para os clientes.
+
+---
+
+### **5. Gerenciamento de Usuários e Pets (Administrador)**  
+**💡 Como administrador da clínica**, quero poder excluir usuários ou pets cadastrados no sistema, para remover dados desnecessários ou incorretos e manter o sistema organizado.
+
 
 ## Tecnologias Utilizadas
 
