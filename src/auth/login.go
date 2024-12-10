@@ -3,40 +3,32 @@ package auth
 import (
 	"net/http"
 
+	config "github.com/dudamesdc/av2-es/src/config"
 	"github.com/gin-gonic/gin"
 )
 
 func Login(c *gin.Context) {
 	var loginData struct {
-		Username string `json:"username"`
+		Email    string `json:"email"`
 		Password string `json:"password"`
-		Role    string `json:"role"`
+		Admin    bool   `json:"admin"`
 	}
 
 	if err := c.ShouldBindJSON(&loginData); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
 		return
 	}
-
-	// Validação fictícia (substitua pela lógica real)
-	if loginData.Role == "admin"  {
-		token, err := GenerateToken(1, "admin")
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "could not generate token"})
-			return
-		}
-		c.JSON(http.StatusOK, gin.H{"token": token})
+	user_id, err := config.GetDatabase().GetUserIDByEmail(loginData.Email)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials"})
 		return
-	}else{
-		token, err := GenerateToken(2, "user") // Usuário com ID 2
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "could not generate token"})
-			return
-		}
-		c.JSON(http.StatusOK, gin.H{"token": token})
-		return
-
 	}
+	token, err := GenerateToken(user_id, loginData.Admin)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "could not generate token"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"token": token})
+	return
 
-	c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials"})
 }

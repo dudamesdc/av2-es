@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"sync"
 
 	models "github.com/dudamesdc/av2-es/src/model"
@@ -14,7 +15,8 @@ var (
 type Database struct {
 	Users        []models.UserResponse
 	Pets         []models.PetResponse
-	Appointments []models.AppointmentResponse
+	Appointments []models.AppointmentsResponse
+	Services     []models.ServiceResponse
 }
 
 // Retorna uma instância singleton do banco
@@ -23,8 +25,18 @@ func GetDatabase() *Database {
 		db = &Database{
 			Users:        []models.UserResponse{},
 			Pets:         []models.PetResponse{},
-			Appointments: []models.AppointmentResponse{},
+			Appointments: []models.AppointmentsResponse{},
+			Services:     []models.ServiceResponse{},
 		}
 	})
 	return db
+}
+
+func (db *Database) GetUserIDByEmail(email string) (int, error) {
+	for _, user := range db.Users {
+		if user.Email == email { // Supondo que o modelo UserResponse tenha um campo Email
+			return user.ID, nil // Supondo que UserResponse tenha um campo ID
+		}
+	}
+	return 0, fmt.Errorf("usuário com o e-mail '%s' não encontrado", email)
 }

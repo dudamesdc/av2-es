@@ -26,17 +26,17 @@ func init() {
 }
 
 type Claims struct {
-	UserID int    `json:"user_id"`
-	Role   string `json:"role"`
+	UserID int  `json:"user_id"`
+	Admin  bool `json:"admin"`
 	jwt.RegisteredClaims
 }
 
 // Gera um token JWT
-func GenerateToken(userID int, role string) (string, error) {
+func GenerateToken(userID int, is_admin bool) (string, error) {
 	expirationTime := time.Now().Add(24 * time.Hour) // Token válido por 24 horas
 	claims := &Claims{
 		UserID: userID,
-		Role:   role,
+		Admin:  is_admin,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(expirationTime),
 		},

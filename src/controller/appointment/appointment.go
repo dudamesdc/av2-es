@@ -4,102 +4,126 @@ import (
 	"net/http"
 	"strconv"
 
-	models "github.com/dudamesdc/av2-es/src/model"
-	repositories "github.com/dudamesdc/av2-es/src/repository/appointment"
+	"github.com/dudamesdc/av2-es/src/auth"
+	"github.com/dudamesdc/av2-es/src/model"
+	repository "github.com/dudamesdc/av2-es/src/repository/appointment"
 	"github.com/gin-gonic/gin"
 )
 
-// Cria um novo agendamento de consulta
-func CreateAppointment(c *gin.Context) {
-	var appointment models.Appointment
-	// Bind JSON to the appointment object
-	if err := c.ShouldBindJSON(&appointment); err != nil {
+// Cria um novo agendamento
+func CreateAppointments(c *gin.Context) {
+	var Appointments model.Appointments
+	// Bind JSON para o objeto Appointments
+	if err := c.ShouldBindJSON(&Appointments); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
 		return
 	}
+	_, err := auth.ValidateToken(c.GetHeader("Authorization"))
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid or expired token"})
+		return
+	}
 
-	// Recupera o userID do contexto (deve vir do token ou de algum middleware)
-	userID := c.GetInt("userID")
-
-	// Chama o repositório para criar o agendamento
-	appointmentResponse, err := repositories.CreateAppointment(appointment, userID)
+	// Chama o repositório para criar o agendamento e obter o AppointmentsResponse (com ID)
+	AppointmentsResponse, err := repository.CreateAppointments(Appointments)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// Retorna o AppointmentResponse (com ID)
-	c.JSON(http.StatusCreated, appointmentResponse)
+	// Retorna o AppointmentsResponse, que inclui o ID
+	c.JSON(http.StatusCreated, AppointmentsResponse)
+	return
 }
 
-// Atualiza um agendamento de consulta
-func UpdateAppointment(c *gin.Context) {
-	var updatedAppointment models.Appointment
-	// Bind JSON to the updatedAppointment object
-	if err := c.ShouldBindJSON(&updatedAppointment); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
-		return
-	}
+// // Atualiza um agendamento existente
+// func UpdateAppointments(c *gin.Context) {
+// 	var updatedAppointments model.Appointments
+// 	// Bind JSON para o objeto updatedAppointments
+// 	if err := c.ShouldBindJSON(&updatedAppointments); err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+// 		return
+// 	}
 
-	// Recupera o ID do agendamento e o userID
+// 	_, err := auth.ValidateToken(c.GetHeader("Authorization"))
+// 	if err != nil {
+// 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid or expired token"})
+// 		return
+// 	}
+// 	AppointmentsID:=c.Param("id")
+// 	id_Appointments,err:=strconv.Atoi(AppointmentsID)
+// 	if err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Appointments ID"})
+// 		return
+// 	}
+// 	// Chama o repositório para atualizar o agendamento
+// 	AppointmentsResponse, err := repository.UpdateAppointments(id_Appointments, updatedAppointments)
+// 	if err != nil {
+// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 		return
+// 	}
+
+// 	// Retorna o AppointmentsResponse
+// 	c.JSON(http.StatusOK, AppointmentsResponse)
+// 	return
+// }
+
+// Remove um agendamento pelo ID
+func DeleteAppointments(c *gin.Context) {
 	idStr := c.Param("id")
+
+	// Convertendo o parâmetro de string para inteiro
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Appointments ID"})
 		return
 	}
-	userID := c.GetInt("userID")
+	_, err = auth.ValidateToken(c.GetHeader("Authorization"))
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid or expired token"})
+		return
+	}
 
-	// Chama o repositório para atualizar o agendamento
-	appointmentResponse, err := repositories.UpdateAppointment(id, updatedAppointment, userID)
+	// Chama o repositório para deletar o agendamento
+	err = repository.DeleteAppointments(id)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// Retorna o AppointmentResponse
-	c.JSON(http.StatusOK, appointmentResponse)
+	// Retorna uma mensagem de sucesso
+	c.JSON(http.StatusOK, gin.H{"message": "Appointments deleted successfully"})
+	return
 }
 
-// Retorna os detalhes de um agendamento específico
-func GetAppointment(c *gin.Context) {
-	// Recupera o ID do agendamento e o userID
-	idStr := c.Param("id")
-	id, err := strconv.Atoi(idStr)
+// Retorna todos os agendamentos
+func GetAllAppointmentss(c *gin.Context) {
+	_, err := auth.ValidateToken(c.GetHeader("Authorization"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid or expired token"})
 		return
 	}
-	userID := c.GetInt("userID")
-
-	// Chama o repositório para obter o agendamento
-	appointmentResponse, err := repositories.GetAppointmentByID(id, userID)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	// Retorna o AppointmentResponse
-	c.JSON(http.StatusOK, appointmentResponse)
+	Appointmentss := repository.GetAllAppointments()
+	c.JSON(http.StatusOK, Appointmentss)
+	return
 }
 
-// Retorna todos os agendamentos (somente para admin)
-func GetAllAppointments(c *gin.Context) {
-	role := c.GetString("role")
-
-	// Verifica se o usuário tem permissão de admin
-	if role != "admin" {
-		c.JSON(http.StatusForbidden, gin.H{"error": "Only admins can view all appointments"})
+// Retorna um agendamento específico pelo ID
+func GetAppointmentsByID(c *gin.Context) {
+	_, err := auth.ValidateToken(c.GetHeader("Authorization"))
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid or expired token"})
 		return
 	}
-
-	// Chama o repositório para obter todos os agendamentos
-	appointments, err := repositories.GetAllAppointments()
+	Appointments_id := c.Param("id")
+	id, err := strconv.Atoi(Appointments_id)
+	Appointments, err := repository.GetAppointmentsByID(id)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// Retorna todos os agendamentos
-	c.JSON(http.StatusOK, appointments)
+	// Retorna o agendamento encontrado
+	c.JSON(http.StatusOK, Appointments)
+	return
 }

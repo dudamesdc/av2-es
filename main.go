@@ -23,7 +23,7 @@ func main() {
 	}
 
 	router := gin.Default()
-	routes.InitRoutes(router)
+	routes.Routes(router)
 
 	log.Printf("Starting server on %s", port)
 	if err := router.Run(port); err != nil {

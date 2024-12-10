@@ -8,13 +8,15 @@ As funcionalidades do sistema foram definidas com base em histórias de usuário
 
 ## 📖 **Histórias de Usuário**
 
-### **1. Cadastro de Usuário (Cliente)**  
-**💡 Como cliente**, quero me cadastrar no sistema da clínica informando meu nome, e-mail e senha, para que eu possa acessar as funcionalidades de cadastro de pets e agendamento de serviços.
+### **1. Cadastro de Usuário (Admin)**  
+**💡 Como admin**, quero cadastrar novos usuários no sistema da clínica informando nome, e-mail e senha, para que os novos usuários possam acessar as funcionalidades de cadastro de pets e agendamento de serviços.
+
 
 ---
 
-### **2. Cadastro de Pet (Cliente)**  
-**💡 Como cliente cadastrado**, quero cadastrar meu pet informando seu nome, idade e espécie, para que ele possa ser vinculado aos serviços que desejo agendar.
+### **2. Cadastro de Pet (Admin)**  
+**💡 Como admin**, quero cadastrar os pets dos clientes informando nome, idade e espécie, para que eles possam ser vinculados aos serviços que os clientes desejam agendar.
+
 
 ---
 
