@@ -140,7 +140,7 @@ Clone este repositório para a sua máquina local:
 ```bash
 git clone https://github.com/seu-usuario/seu-repositorio.git
 cd seu-repositorio
-
+(É NESSESÁRIO CRIAR UM ARQUIVO CHAMADO '.ENV' E SETAR UM VALOR PARA A JWT_SECRET_KEY)
 2. Instalar Dependências
 Dentro do diretório do projeto, execute o comando abaixo para instalar as dependências:
 
