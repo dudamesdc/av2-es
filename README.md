@@ -33,6 +33,19 @@ As funcionalidades do sistema foram definidas com base em histórias de usuário
 ### **5. Gerenciamento de Usuários e Pets (Administrador)**  
 **💡 Como administrador da clínica**, quero poder excluir usuários ou pets cadastrados no sistema, para remover dados desnecessários ou incorretos e manter o sistema organizado.
 
+## Diagrama de Classe
+![Diagrama](./images/diagrama.png)
+
+## 📖 **Descrição do Diagrama de Classes**
+
+O diagrama de classes ilustra a estrutura principal da API da clínica veterinária, com quatro entidades principais: **Usuário**, **Pet**, **Agendamento** e **Serviço**. 
+
+- **Usuários** (clientes ou administradores) podem cadastrar pets e agendar serviços.  
+- **Pets** estão vinculados a usuários e podem ter múltiplos agendamentos.  
+- **Agendamentos** conectam pets a tipos de serviços, como banho ou vacinação.  
+
+Essa modelagem garante organização e eficiência na gestão de dados do sistema.
+
 
 ## Tecnologias Utilizadas
 
@@ -79,6 +92,7 @@ Para rodar a API usando Docker, siga as etapas abaixo.
 bash
 Copiar código
 docker build -t api-agendamento .
+(verificar sempre a versão do GO em go.mod e aversão do dockerfile)
 4.2. Rodar o Contêiner Docker
 bash
 Copiar código
