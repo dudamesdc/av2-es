@@ -122,6 +122,7 @@ if Claims.Admin != true {
     c.JSON(http.StatusUnauthorized, gin.H{"error": "Access denied"})
     return
 }
+```
 
 ## Pré-Requisitos
 
