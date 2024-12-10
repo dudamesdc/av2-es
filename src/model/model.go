@@ -24,7 +24,7 @@ type PetResponse struct {
 	Breed     string `json:"breed"`
 	Age       int    `json:"age"`
 	ServiceID int    `json:"service_id"`
-	OwnerID   int    `json:"owner_id"` // Relacionamento com o usuário
+	OwnerID   int    `json:"owner_id"`
 }
 type Pet struct {
 	Name      string `json:"name"`
@@ -32,7 +32,7 @@ type Pet struct {
 	Breed     string `json:"breed"`
 	Age       int    `json:"age"`
 	ServiceID int    `json:"vaccination_id"`
-	OwnerID   int    `json:"owner_id"` // Relacionamento com o usuário
+	OwnerID   int    `json:"owner_id"`
 }
 
 type User struct {
@@ -40,7 +40,7 @@ type User struct {
 	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
-	UserType string `json:"type_user"`
+	Admin    bool   `json:"admin"`
 }
 
 type UserResponse struct {
@@ -48,7 +48,7 @@ type UserResponse struct {
 	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
-	UserType string `json:"type_user"`
+	Admin    bool   `json:"admin"`
 }
 
 type ServiceResponse struct {

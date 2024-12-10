@@ -31,48 +31,13 @@ func CreateAppointments(c *gin.Context) {
 		return
 	}
 
-	// Retorna o AppointmentsResponse, que inclui o ID
 	c.JSON(http.StatusCreated, AppointmentsResponse)
 	return
 }
 
-// // Atualiza um agendamento existente
-// func UpdateAppointments(c *gin.Context) {
-// 	var updatedAppointments model.Appointments
-// 	// Bind JSON para o objeto updatedAppointments
-// 	if err := c.ShouldBindJSON(&updatedAppointments); err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
-// 		return
-// 	}
-
-// 	_, err := auth.ValidateToken(c.GetHeader("Authorization"))
-// 	if err != nil {
-// 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid or expired token"})
-// 		return
-// 	}
-// 	AppointmentsID:=c.Param("id")
-// 	id_Appointments,err:=strconv.Atoi(AppointmentsID)
-// 	if err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Appointments ID"})
-// 		return
-// 	}
-// 	// Chama o repositório para atualizar o agendamento
-// 	AppointmentsResponse, err := repository.UpdateAppointments(id_Appointments, updatedAppointments)
-// 	if err != nil {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	// Retorna o AppointmentsResponse
-// 	c.JSON(http.StatusOK, AppointmentsResponse)
-// 	return
-// }
-
-// Remove um agendamento pelo ID
 func DeleteAppointments(c *gin.Context) {
 	idStr := c.Param("id")
 
-	// Convertendo o parâmetro de string para inteiro
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Appointments ID"})
@@ -84,22 +49,24 @@ func DeleteAppointments(c *gin.Context) {
 		return
 	}
 
-	// Chama o repositório para deletar o agendamento
 	err = repository.DeleteAppointments(id)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// Retorna uma mensagem de sucesso
 	c.JSON(http.StatusOK, gin.H{"message": "Appointments deleted successfully"})
 	return
 }
 
-// Retorna todos os agendamentos
+
 func GetAllAppointmentss(c *gin.Context) {
-	_, err := auth.ValidateToken(c.GetHeader("Authorization"))
+	Claims, err := auth.ValidateToken(c.GetHeader("Authorization"))
 	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid or expired token"})
+		return
+	}
+	if Claims.Admin != true {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid or expired token"})
 		return
 	}
@@ -108,7 +75,7 @@ func GetAllAppointmentss(c *gin.Context) {
 	return
 }
 
-// Retorna um agendamento específico pelo ID
+
 func GetAppointmentsByID(c *gin.Context) {
 	_, err := auth.ValidateToken(c.GetHeader("Authorization"))
 	if err != nil {
