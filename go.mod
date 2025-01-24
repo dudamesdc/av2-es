@@ -1,6 +1,6 @@
 module github.com/dudamesdc/av2-es
 
-go 1.23.4
+go 1.23
 
 require (
 	github.com/bytedance/sonic v1.12.5 // indirect
